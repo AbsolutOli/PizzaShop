@@ -1,4 +1,16 @@
+import React from "react";
+
 function Sort() {
+  const [visibleSort, setVisibleSort] = React.useState(false);
+  const [activeSortType, setActiveSortType] = React.useState(0);
+
+  const onClickSortType = (index) => {
+    setActiveSortType(index);
+    setVisibleSort(!visibleSort);
+  };
+
+  const sortType = ["популярности", "цене", "алфавиту"];
+
   return (
     <div className="sort">
       <div className="sort__label">
@@ -15,15 +27,25 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={() => setVisibleSort(!visibleSort)}>
+          {sortType[activeSortType]}
+        </span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {visibleSort && (
+        <div className="sort__popup">
+          <ul>
+            {sortType.map((type, index) => (
+              <li
+                onClick={() => onClickSortType(index)}
+                className={activeSortType === index ? "active" : ""}
+                key={type}
+              >
+                {type}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
