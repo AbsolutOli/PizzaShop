@@ -1,8 +1,16 @@
 @import '../variables';
 
 .categories {
+  @media (max-width:1200px){
+    overflow: auto;
+  }
+  @media (max-width:1000px){
+    width: 100%;
+  }
+
   ul {
     display: flex;
+    
 
     li {
       background-color: #f9f9f9;

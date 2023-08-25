@@ -16,6 +16,7 @@ function Home() {
         setPizzasArr(arr);
         setPizzaLoading(false);
       });
+    window.scrollTo(0, 0);
   }, []);
   return (
     <div className="content">
@@ -25,10 +26,12 @@ function Home() {
           <Sort />
         </div>
         <h2 className="content__title">Все пиццы</h2>
-        <div className="content__items">
-          {pizzaLoading
-            ? [...Array(8)].map((_, index) => <PizzaSkeleton key={index.id} />)
-            : pizzasArr.map((item) => <PizzaBlock key={item.id} {...item} />)}
+        <div className="content__items__wrapper">
+          <div className="content__items">
+            {pizzaLoading
+              ? [...Array(8)].map((_, index) => <PizzaSkeleton key={index} />)
+              : pizzasArr.map((item) => <PizzaBlock key={item.id} {...item} />)}
+          </div>
         </div>
       </div>
     </div>
