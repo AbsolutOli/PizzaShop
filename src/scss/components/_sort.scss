@@ -18,6 +18,10 @@
 
     svg {
       margin-right: 8px;
+      cursor: pointer;
+    }
+    &__svg_rotate{
+      transform: rotate(180deg);
     }
 
     b {

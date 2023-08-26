@@ -1,21 +1,31 @@
 import React from "react";
 
-function Sort() {
+function Sort({
+  selectedType,
+  setSelectedType,
+  selectedOrder,
+  setSelectedOrder,
+}) {
   const [visibleSort, setVisibleSort] = React.useState(false);
-  const [activeSortType, setActiveSortType] = React.useState(0);
 
-  const onClickSortType = (index) => {
-    setActiveSortType(index);
+  const onClickSortType = (type) => {
+    setSelectedType(type);
     setVisibleSort(!visibleSort);
   };
 
-  const sortType = ["популярности", "цене", "алфавиту"];
+  const sortType = [
+    { name: "популярности", parameter: "rating" },
+    { name: "цене", parameter: "price" },
+    { name: "алфавиту", parameter: "title" },
+  ];
 
   return (
     <div className="sort">
       <div className="sort__label">
         <div className="sort__label__start">
           <svg
+            onClick={() => setSelectedOrder(!selectedOrder)}
+            className={selectedOrder ? "sort__label__svg_rotate" : ""}
             width="10"
             height="6"
             viewBox="0 0 10 6"
@@ -31,7 +41,7 @@ function Sort() {
         </div>
 
         <span onClick={() => setVisibleSort(!visibleSort)}>
-          {sortType[activeSortType]}
+          {selectedType.name}
         </span>
       </div>
       {visibleSort && (
@@ -39,11 +49,11 @@ function Sort() {
           <ul>
             {sortType.map((type, index) => (
               <li
-                onClick={() => onClickSortType(index)}
-                className={activeSortType === index ? "active" : ""}
-                key={type}
+                onClick={() => onClickSortType(type)}
+                className={selectedType.name === type.name ? "active" : ""}
+                key={type.name}
               >
-                {type}
+                {type.name}
               </li>
             ))}
           </ul>
