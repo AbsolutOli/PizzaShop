@@ -1,0 +1,46 @@
+.header__search{
+    position: relative;
+    input{
+      width: 400px;
+      padding: 15px 30px 15px 40px;
+      font-size: 17px;
+      color: black;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 0 , 0, 0.2);
+
+      transition: all 0.2s ease-out;
+    }
+
+    input::placeholder{
+        color: rgb(0, 0, 0, 0.5);
+    }
+
+    input:focus{
+        border: 1px solid rgba(0, 0 , 0, 0.5);
+        box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.2);
+    }
+
+    svg{
+        position: absolute;
+    }
+
+    .search__icon{
+        left: 14px;
+        top:33%;
+    }
+
+    .close__icon{
+        top: 20%;
+        right: 10px;
+
+        svg{
+            path{
+                fill: #858383;
+            }
+        }
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+  }
