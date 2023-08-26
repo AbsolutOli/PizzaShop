@@ -7,12 +7,17 @@ import PageNotFound from "./pages/PageNotFound";
 import Cart from "./pages/Cart";
 
 function App() {
+  const [searchValue, setSearchValue] = React.useState("");
+
   return (
     <div className="wrapper">
-      <Header />
+      <Header
+        searchValue={searchValue}
+        setSearchValue={(value) => setSearchValue(value)}
+      />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home searchValue={searchValue} />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
