@@ -4,8 +4,11 @@ import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
+import { SearchContext } from "../App";
 
-function Home({ searchValue }) {
+function Home() {
+  const { searchValue } = React.useContext(SearchContext);
+
   const [pizzasArr, setPizzasArr] = React.useState([]);
   const [pizzaLoading, setPizzaLoading] = React.useState(true);
   const [activeCategory, setActiveCategory] = React.useState(0);
