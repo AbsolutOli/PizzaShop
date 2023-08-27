@@ -1,4 +1,6 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategoryId } from "../redux/slices/filterSlice";
 
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
@@ -7,11 +9,16 @@ import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
 import { SearchContext } from "../App";
 
 function Home() {
-  const { searchValue } = React.useContext(SearchContext);
+  const dispatch = useDispatch();
+  const activeCategory = useSelector((state) => state.filter.categoryId);
+  const onChangeCategory = (index) => {
+    dispatch(setCategoryId(index));
+  };
 
+  const { searchValue } = React.useContext(SearchContext);
   const [pizzasArr, setPizzasArr] = React.useState([]);
   const [pizzaLoading, setPizzaLoading] = React.useState(true);
-  const [activeCategory, setActiveCategory] = React.useState(0);
+  // const [activeCategory, setActiveCategory] = React.useState(0);
   const [activeSortType, setActiveSortType] = React.useState({
     name: "популярности",
     parameter: "rating",
@@ -19,7 +26,6 @@ function Home() {
   const [activeSortOrder, setActiveSortOrder] = React.useState(false); //false - ASC, true - DESK
 
   React.useEffect(() => {
-    console.log(searchValue);
     setPizzaLoading(true);
     const category = activeCategory ? `&category=${activeCategory}` : "";
     const sort = `&sortBy=${activeSortType.parameter}`;
@@ -44,7 +50,7 @@ function Home() {
         <div className="content__top">
           <Categories
             selectedCategory={activeCategory}
-            setSelectedCategory={(index) => setActiveCategory(index)}
+            setSelectedCategory={onChangeCategory}
           />
           <Sort
             selectedType={activeSortType}
