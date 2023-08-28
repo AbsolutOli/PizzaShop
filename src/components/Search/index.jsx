@@ -1,8 +1,23 @@
-import React, { useRef } from "react";
+import React from "react";
 import styles from "./search.module.scss";
+import debounce from "lodash.debounce";
 
-function Search({ searchValue, setSearchValue }) {
-  const inputRef = useRef();
+function Search({ setSearchValue }) {
+  const [activeValue, setActiveValue] = React.useState("");
+
+  const updateSearchValue = React.useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 500),
+    []
+  );
+
+  const onChangeInput = (str) => {
+    setActiveValue(str);
+    updateSearchValue(str);
+  };
+
+  const inputRef = React.useRef();
 
   const onClickClose = () => {
     setSearchValue("");
@@ -29,11 +44,11 @@ function Search({ searchValue, setSearchValue }) {
       </svg>
       <input
         ref={inputRef}
-        onChange={(event) => setSearchValue(event.target.value)}
+        onChange={(event) => onChangeInput(event.target.value)}
         placeholder="Введите название пиццы..."
-        value={searchValue}
+        value={activeValue}
       />
-      {searchValue && (
+      {activeValue && (
         <svg
           onClick={() => onClickClose()}
           className={styles.close__icon}
