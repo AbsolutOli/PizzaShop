@@ -10,7 +10,11 @@ import { SearchContext } from "../App";
 
 function Home() {
   const dispatch = useDispatch();
-  const activeCategory = useSelector((state) => state.filter.categoryId);
+  const {
+    categoryId: activeCategory,
+    sort: activeSortType,
+    order: activeSortOrder,
+  } = useSelector((state) => state.filter);
   const onChangeCategory = (index) => {
     dispatch(setCategoryId(index));
   };
@@ -19,11 +23,11 @@ function Home() {
   const [pizzasArr, setPizzasArr] = React.useState([]);
   const [pizzaLoading, setPizzaLoading] = React.useState(true);
   // const [activeCategory, setActiveCategory] = React.useState(0);
-  const [activeSortType, setActiveSortType] = React.useState({
-    name: "популярности",
-    parameter: "rating",
-  });
-  const [activeSortOrder, setActiveSortOrder] = React.useState(false); //false - ASC, true - DESK
+  // const [activeSortType, setActiveSortType] = React.useState({
+  //   name: "популярности",
+  //   parameter: "rating",
+  // });
+  // const [activeSortOrder, setActiveSortOrder] = React.useState(false); //false - ASC, true - DESK
 
   React.useEffect(() => {
     setPizzaLoading(true);
@@ -52,12 +56,7 @@ function Home() {
             selectedCategory={activeCategory}
             setSelectedCategory={onChangeCategory}
           />
-          <Sort
-            selectedType={activeSortType}
-            setSelectedType={(index) => setActiveSortType(index)}
-            selectedOrder={activeSortOrder}
-            setSelectedOrder={(state) => setActiveSortOrder(state)}
-          />
+          <Sort />
         </div>
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items__wrapper">

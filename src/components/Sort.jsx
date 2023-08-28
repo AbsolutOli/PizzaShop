@@ -1,15 +1,17 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSortType, setOrder } from "../redux/slices/filterSlice";
 
-function Sort({
-  selectedType,
-  setSelectedType,
-  selectedOrder,
-  setSelectedOrder,
-}) {
+function Sort() {
+  const dispatch = useDispatch();
+  const { sort: selectedType, order: selectedOrder } = useSelector(
+    (state) => state.filter
+  );
+
   const [visibleSort, setVisibleSort] = React.useState(false);
 
   const onClickSortType = (type) => {
-    setSelectedType(type);
+    dispatch(setSortType(type));
     setVisibleSort(!visibleSort);
   };
 
@@ -24,7 +26,7 @@ function Sort({
       <div className="sort__label">
         <div className="sort__label__start">
           <svg
-            onClick={() => setSelectedOrder(!selectedOrder)}
+            onClick={() => dispatch(setOrder(!selectedOrder))}
             className={selectedOrder ? "sort__label__svg_rotate" : ""}
             width="10"
             height="6"
