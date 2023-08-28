@@ -20,6 +20,7 @@ function Search({ setSearchValue }) {
   const inputRef = React.useRef();
 
   const onClickClose = () => {
+    setActiveValue("");
     setSearchValue("");
     inputRef.current.focus();
   };

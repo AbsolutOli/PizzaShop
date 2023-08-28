@@ -8,6 +8,7 @@ import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
 import { SearchContext } from "../App";
+import Pagination from "../components/Pagination";
 
 function Home() {
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ function Home() {
               : pizzasArr.map((item) => <PizzaBlock key={item.id} {...item} />)}
           </div>
         </div>
+        <Pagination />
       </div>
     </div>
   );
