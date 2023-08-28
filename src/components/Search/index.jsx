@@ -1,6 +1,14 @@
+import React, { useRef } from "react";
 import styles from "./search.module.scss";
 
 function Search({ searchValue, setSearchValue }) {
+  const inputRef = useRef();
+
+  const onClickClose = () => {
+    setSearchValue("");
+    inputRef.current.focus();
+  };
+
   return (
     <div className={styles.header__search}>
       <svg
@@ -20,13 +28,14 @@ function Search({ searchValue, setSearchValue }) {
         />
       </svg>
       <input
+        ref={inputRef}
         onChange={(event) => setSearchValue(event.target.value)}
         placeholder="Введите название пиццы..."
         value={searchValue}
       />
       {searchValue && (
         <svg
-          onClick={() => setSearchValue("")}
+          onClick={() => onClickClose()}
           className={styles.close__icon}
           width="35px"
           height="35px"
