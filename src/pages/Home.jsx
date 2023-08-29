@@ -16,27 +16,29 @@ function Home() {
     categoryId: activeCategory,
     sort: activeSortType,
     order: activeSortOrder,
+    page: activePage,
   } = useSelector((state) => state.filter);
   const onChangeCategory = (index) => {
     dispatch(setCategoryId(index));
   };
 
+  const [pageCount, setPageCount] = React.useState(1);
   const { searchValue } = React.useContext(SearchContext);
   const [pizzasArr, setPizzasArr] = React.useState([]);
   const [pizzaLoading, setPizzaLoading] = React.useState(true);
-  // const [activeCategory, setActiveCategory] = React.useState(0);
-  // const [activeSortType, setActiveSortType] = React.useState({
-  //   name: "популярности",
-  //   parameter: "rating",
-  // });
-  // const [activeSortOrder, setActiveSortOrder] = React.useState(false); //false - ASC, true - DESK
+
+  const onGetLength = (value) => {
+    value > 0 ? setPageCount(Number(value)) : setPageCount(1);
+  };
 
   React.useEffect(() => {
     setPizzaLoading(true);
     const category = activeCategory ? `&category=${activeCategory}` : "";
     const sort = `&sortBy=${activeSortType.parameter}`;
-    const order = `&order=${activeSortOrder ? "desc" : "asc"}`;
+    const order = `&order=${activeSortOrder ? "desc" : "asc"}`; //false - ASC, true - DESK
     const search = `&search=${searchValue}`;
+    const limit = `&limit=8`;
+    const page = `&page=${activePage}`;
 
     axios
       .get(
@@ -45,12 +47,28 @@ function Home() {
         }`
       )
       .then((res) => {
+        onGetLength((res.data.length / 8).toFixed());
+      });
+
+    axios
+      .get(
+        `https://64e73e4cb0fd9648b78f9b4b.mockapi.io/items?${
+          search + category + sort + order + limit + page
+        }`
+      )
+      .then((res) => {
         setPizzasArr(res.data);
         setPizzaLoading(false);
       });
 
     window.scrollTo(0, 0);
-  }, [activeCategory, activeSortType, activeSortOrder, searchValue]);
+  }, [
+    activeCategory,
+    activeSortType,
+    activeSortOrder,
+    searchValue,
+    activePage,
+  ]);
   return (
     <div className="content">
       <div className="container">
@@ -69,7 +87,7 @@ function Home() {
               : pizzasArr.map((item) => <PizzaBlock key={item.id} {...item} />)}
           </div>
         </div>
-        <Pagination />
+        <Pagination pageCount={pageCount} />
       </div>
     </div>
   );

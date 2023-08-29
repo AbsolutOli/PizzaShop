@@ -7,6 +7,7 @@ sort: {
     parameter: "rating",
   },
 order: false,
+page: 1
 };
 
 const filterSlice = createSlice({
@@ -21,9 +22,12 @@ const filterSlice = createSlice({
         },
         setOrder(state, action){
             state.order = action.payload;
+        },
+        setPage(state, action){
+            state.page = action.payload;
         }
     }
 })
-export const {setCategoryId, setSortType, setOrder} = filterSlice.actions;
+export const {setCategoryId, setSortType, setOrder, setPage} = filterSlice.actions;
 
 export default filterSlice.reducer;

@@ -4,12 +4,27 @@
     ul{
         display: flex;
         justify-content: center;
+        align-items: center;
         column-gap: 10px;
 
         li{
-            &:last-child, &:first-child{
+            .pagination__back, .pagination__next{
                 margin: 0 10px;
+                height: 39px;
+                width: 39px;
+                align-self: center;
+
+                &:disabled{
+                    border: 1px solid #505050;
+                    opacity: 0.5;
+                    background: #FFF;
+
+                    svg{
+                        fill:#505050;
+                    }
+                }
             }
+
 
             button{
                 background: #FFF;
