@@ -81,21 +81,17 @@ function Home() {
           order,
         })
       );
-      console.log("1 UseEff", isSearch.current);
       isSearch.current = true;
-      console.log("1 UseEff", isSearch.current);
     }
   }, []);
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
-    console.log("2 UseEff", isSearch.current);
     if (!isSearch.current) {
       pizzasFetch();
     }
 
     isSearch.current = false;
-    console.log("2 UseEff", isSearch.current);
   }, [
     activeCategory,
     activeSortType,

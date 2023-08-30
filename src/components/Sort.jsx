@@ -15,6 +15,20 @@ function Sort() {
   );
 
   const [visibleSort, setVisibleSort] = React.useState(false);
+  const sortRef = React.useRef();
+
+  React.useEffect(() => {
+    const onBodyClick = (event) => {
+      if (!event.composedPath().includes(sortRef.current)) {
+        setVisibleSort(false);
+      }
+    };
+    document.body.addEventListener("click", onBodyClick);
+
+    return () => {
+      document.body.removeEventListener("click", onBodyClick);
+    };
+  }, []);
 
   const onClickSortType = (type) => {
     dispatch(setSortType(type));
@@ -22,7 +36,7 @@ function Sort() {
   };
 
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <div className="sort__label__start">
           <svg
