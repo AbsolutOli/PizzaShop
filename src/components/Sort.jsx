@@ -2,6 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSortType, setOrder } from "../redux/slices/filterSlice";
 
+export const sortType = [
+  { name: "популярности", parameter: "rating" },
+  { name: "цене", parameter: "price" },
+  { name: "алфавиту", parameter: "title" },
+];
+
 function Sort() {
   const dispatch = useDispatch();
   const { sort: selectedType, order: selectedOrder } = useSelector(
@@ -14,12 +20,6 @@ function Sort() {
     dispatch(setSortType(type));
     setVisibleSort(!visibleSort);
   };
-
-  const sortType = [
-    { name: "популярности", parameter: "rating" },
-    { name: "цене", parameter: "price" },
-    { name: "алфавиту", parameter: "title" },
-  ];
 
   return (
     <div className="sort">

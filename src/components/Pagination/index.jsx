@@ -5,7 +5,6 @@ import { setPage } from "../../redux/slices/filterSlice";
 function Pagination({ pageCount }) {
   const dispatch = useDispatch();
   const activePage = useSelector((state) => state.filter.page);
-  console.log(activePage, pageCount);
 
   return (
     <div className={styles.pagination}>
