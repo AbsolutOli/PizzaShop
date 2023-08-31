@@ -20,7 +20,7 @@ function PizzaBlock({ id, title, imageUrl, types, sizes, price }) {
       id,
       title,
       imageUrl,
-      type: activeDoughType,
+      type: doughTypes[activeDoughType],
       size: activePizzaSize,
       price,
     };
