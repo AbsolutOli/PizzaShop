@@ -5,6 +5,7 @@ import CartItem from "../components/cartItem";
 import ShoppingCartImg from "../assets/img/shopping-cart.svg";
 
 function Cart() {
+  const dispatch = useDispatch();
   const { totalPrice, items } = useSelector((state) => state.cart);
 
   const itemCartCount = items.reduce((sum, item) => {
