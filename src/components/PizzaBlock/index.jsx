@@ -1,18 +1,34 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { addItem } from "../../redux/slices/cartSlice";
 
-function PizzaBlock(props) {
+function PizzaBlock({ id, title, imageUrl, types, sizes, price }) {
+  const dispatch = useDispatch();
   const [activeDoughType, setActiveDoughType] = React.useState(0);
   const [activePizzaSize, setActivePizzaSize] = React.useState(0);
 
   const doughTypes = ["тонкое", "традиционное"];
 
+  const onClickAdd = () => {
+    const item = {
+      id,
+      title,
+      imageUrl,
+      type: activeDoughType,
+      size: activePizzaSize,
+      price,
+    };
+
+    dispatch(addItem(item));
+  };
+
   return (
     <div className="pizza-block">
-      <img className="pizza-block__image" src={props.imageUrl} alt="Pizza" />
-      <h4 className="pizza-block__title">{props.title}</h4>
+      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+      <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
-          {props.types.map((type, index) => (
+          {types.map((type, index) => (
             <li
               key={type}
               onClick={() => setActiveDoughType(index)}
@@ -23,7 +39,7 @@ function PizzaBlock(props) {
           ))}
         </ul>
         <ul>
-          {props.sizes.map((size, index) => (
+          {sizes.map((size, index) => (
             <li
               key={size}
               onClick={() => setActivePizzaSize(index)}
@@ -35,8 +51,11 @@ function PizzaBlock(props) {
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от {props.price} ₴</div>
-        <button className="button button--outline button--add">
+        <div className="pizza-block__price">от {price} ₴</div>
+        <button
+          onClick={() => onClickAdd()}
+          className="button button--outline button--add"
+        >
           <svg
             width="12"
             height="12"
