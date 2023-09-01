@@ -36,7 +36,7 @@ function Home() {
     value > 0 ? setPageCount(Number(value)) : setPageCount(1);
   };
 
-  const pizzasFetch = () => {
+  const pizzasFetch = async () => {
     setPizzaLoading(true);
     const category = activeCategory ? `&category=${activeCategory}` : "";
     const sort = `&sortBy=${activeSortType.parameter}`;
@@ -45,26 +45,32 @@ function Home() {
     const limit = `&limit=8`;
     const page = `&page=${activePage}`;
 
-    axios
-      .get(
+    try {
+      const resForPagination = await axios.get(
         `https://64e73e4cb0fd9648b78f9b4b.mockapi.io/items?${
           search + category + sort + order
         }`
-      )
-      .then((res) => {
-        onGetLength((res.data.length / 8).toFixed());
-      });
+      );
+      onGetLength((resForPagination.data.length / 8).toFixed());
+    } catch (err) {
+      console.log(err);
+    }
 
-    axios
-      .get(
+    try {
+      const resPizzaArr = await axios.get(
         `https://64e73e4cb0fd9648b78f9b4b.mockapi.io/items?${
           search + category + limit + page + sort + order
         }`
-      )
-      .then((res) => {
-        setPizzasArr(res.data);
-        setPizzaLoading(false);
-      });
+      );
+      setPizzasArr(resPizzaArr.data);
+    } catch (error) {
+      console.log(error);
+      alert(
+        "Не удалось загрузить данные с сервера, проверьте качество интернет соединения или попробуйте позже!"
+      );
+    } finally {
+      setPizzaLoading(false);
+    }
   };
 
   React.useEffect(() => {
