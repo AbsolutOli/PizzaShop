@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import CartItem from "../components/cartItem";
 import ShoppingCartImg from "../assets/img/shopping-cart.svg";
+import { clearCart } from "../redux/slices/cartSlice";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -11,6 +12,12 @@ function Cart() {
   const itemCartCount = items.reduce((sum, item) => {
     return item.count + sum;
   }, 0);
+
+  const onClearClick = () => {
+    if (window.confirm("Вы действительно хотите очистить корзину?")) {
+      dispatch(clearCart());
+    }
+  };
   return (
     <div className="wrapper">
       <div className="content">
@@ -50,7 +57,7 @@ function Cart() {
                   </svg>
                   Корзина
                 </h2>
-                <div className="cart__clear">
+                <div onClick={() => onClearClick()} className="cart__clear">
                   <svg
                     width="20"
                     height="20"
@@ -100,11 +107,11 @@ function Cart() {
                 <div className="cart__bottom-details">
                   <span>
                     {" "}
-                    Всего пицц: <b>3 шт.</b>{" "}
+                    Всего пицц: <b>{itemCartCount} шт.</b>{" "}
                   </span>
                   <span>
                     {" "}
-                    Сумма заказа: <b>900 ₴</b>{" "}
+                    Сумма заказа: <b>{totalPrice} ₴</b>{" "}
                   </span>
                 </div>
                 <div className="cart__bottom-buttons">
