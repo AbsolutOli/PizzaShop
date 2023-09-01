@@ -11,30 +11,28 @@ import PizzaBlock from "../components/PizzaBlock";
 import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
 import { SearchContext } from "../App";
 import Pagination from "../components/Pagination";
+import { setPageCount, setPizzasArr } from "../redux/slices/pizzaSlice";
 
 function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const {
     categoryId: activeCategory,
     sort: activeSortType,
     order: activeSortOrder,
     page: activePage,
   } = useSelector((state) => state.filter);
+  const { pizzasArr, pageCount } = useSelector((state) => state.pizza);
+
   const onChangeCategory = (index) => {
     dispatch(setCategoryId(index));
   };
 
-  const [pageCount, setPageCount] = React.useState(1);
   const { searchValue } = React.useContext(SearchContext);
-  const [pizzasArr, setPizzasArr] = React.useState([]);
   const [pizzaLoading, setPizzaLoading] = React.useState(true);
   const isMounted = React.useRef(false);
   const isSearch = React.useRef(false);
-
-  const onGetLength = (value) => {
-    value > 0 ? setPageCount(Number(value)) : setPageCount(1);
-  };
 
   const pizzasFetch = async () => {
     setPizzaLoading(true);
@@ -46,12 +44,12 @@ function Home() {
     const page = `&page=${activePage}`;
 
     try {
-      const resForPagination = await axios.get(
+      const { data } = await axios.get(
         `https://64e73e4cb0fd9648b78f9b4b.mockapi.io/items?${
           search + category + sort + order
         }`
       );
-      onGetLength((resForPagination.data.length / 8).toFixed());
+      dispatch(setPageCount(data));
     } catch (err) {
       console.log(err);
     }
@@ -62,7 +60,7 @@ function Home() {
           search + category + limit + page + sort + order
         }`
       );
-      setPizzasArr(resPizzaArr.data);
+      dispatch(setPizzasArr(resPizzaArr.data));
     } catch (error) {
       console.log(error);
       alert(
