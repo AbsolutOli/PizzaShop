@@ -11,7 +11,7 @@ import PizzaBlock from "../components/PizzaBlock";
 import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
 import { SearchContext } from "../App";
 import Pagination from "../components/Pagination";
-import { setPageCount, setPizzasArr } from "../redux/slices/pizzaSlice";
+import { setPageCount, fetchPizzas } from "../redux/slices/pizzaSlice";
 
 function Home() {
   const navigate = useNavigate();
@@ -23,19 +23,21 @@ function Home() {
     order: activeSortOrder,
     page: activePage,
   } = useSelector((state) => state.filter);
-  const { pizzasArr, pageCount } = useSelector((state) => state.pizza);
+  const {
+    pizzasArr,
+    pageCount,
+    status: pizzaLoading,
+  } = useSelector((state) => state.pizza);
 
   const onChangeCategory = (index) => {
     dispatch(setCategoryId(index));
   };
 
   const { searchValue } = React.useContext(SearchContext);
-  const [pizzaLoading, setPizzaLoading] = React.useState(true);
   const isMounted = React.useRef(false);
   const isSearch = React.useRef(false);
 
   const pizzasFetch = async () => {
-    setPizzaLoading(true);
     const category = activeCategory ? `&category=${activeCategory}` : "";
     const sort = `&sortBy=${activeSortType.parameter}`;
     const order = `&order=${activeSortOrder ? "desc" : "asc"}`; //false - ASC, true - DESK
@@ -54,21 +56,7 @@ function Home() {
       console.log(err);
     }
 
-    try {
-      const resPizzaArr = await axios.get(
-        `https://64e73e4cb0fd9648b78f9b4b.mockapi.io/items?${
-          search + category + limit + page + sort + order
-        }`
-      );
-      dispatch(setPizzasArr(resPizzaArr.data));
-    } catch (error) {
-      console.log(error);
-      alert(
-        "Не удалось загрузить данные с сервера, проверьте качество интернет соединения или попробуйте позже!"
-      );
-    } finally {
-      setPizzaLoading(false);
-    }
+    dispatch(fetchPizzas({ search, category, limit, page, sort, order }));
   };
 
   React.useEffect(() => {
@@ -130,7 +118,7 @@ function Home() {
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items__wrapper">
           <div className="content__items">
-            {pizzaLoading
+            {pizzaLoading === "loading"
               ? [...Array(8)].map((_, index) => <PizzaSkeleton key={index} />)
               : pizzasArr.map((item) => <PizzaBlock key={item.id} {...item} />)}
           </div>
