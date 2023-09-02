@@ -6,10 +6,11 @@ import { SearchContext } from "../App";
 
 import PizzaLogo from "../assets/img/pizzalogo.png";
 import { useContext } from "react";
+import { selectCart } from "../redux/slices/cartSlice";
 
 function Header() {
   const { searchValue, setSearchValue } = useContext(SearchContext);
-  const { totalPrice, items } = useSelector((state) => state.cart);
+  const { totalPrice, items } = useSelector(selectCart);
 
   const totalCount = items.reduce((sum, item) => {
     return item.count + sum;

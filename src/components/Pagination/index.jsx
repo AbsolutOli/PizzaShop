@@ -1,11 +1,10 @@
 import styles from "./pagination.module.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { setPage } from "../../redux/slices/filterSlice";
+import { selectFilterPage, setPage } from "../../redux/slices/filterSlice";
 
 function Pagination({ pageCount }) {
   const dispatch = useDispatch();
-  const activePage = useSelector((state) => state.filter.page);
-
+  const activePage = useSelector(selectFilterPage);
   return (
     <div className={styles.pagination}>
       <ul className="pagination__buttons">

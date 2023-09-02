@@ -1,6 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategoryId, setFilters } from "../redux/slices/filterSlice";
+import {
+  selectFilter,
+  setCategoryId,
+  setFilters,
+} from "../redux/slices/filterSlice";
 import axios from "axios";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +26,7 @@ function Home() {
     sort: activeSortType,
     order: activeSortOrder,
     page: activePage,
-  } = useSelector((state) => state.filter);
+  } = useSelector(selectFilter);
   const {
     pizzasArr,
     pageCount,

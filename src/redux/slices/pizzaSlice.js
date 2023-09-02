@@ -31,17 +31,14 @@ const pizzaSlice = createSlice({
     extraReducers: {
         [fetchPizzas.pending]:(state)=>{
             state.status = 'loading';
-            console.log('pending')
             state.pizzasArr = [];
         },
         [fetchPizzas.fulfilled]:(state, action)=>{
             state.pizzasArr = action.payload;
-            console.log('success')
             state.status = 'success';
         },
         [fetchPizzas.rejected]:(state)=>{
             state.status = 'error';
-            console.log('error')
             state.pizzasArr = [];
         }
     }
