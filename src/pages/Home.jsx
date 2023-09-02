@@ -118,9 +118,20 @@ function Home() {
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items__wrapper">
           <div className="content__items">
-            {pizzaLoading === "loading"
-              ? [...Array(8)].map((_, index) => <PizzaSkeleton key={index} />)
-              : pizzasArr.map((item) => <PizzaBlock key={item.id} {...item} />)}
+            {pizzaLoading === "error" ? (
+              <div className="content__error">
+                <p>😔</p>
+                <h3>Не удалось получить список пиц!</h3>
+                <h4>
+                  Проверьте ваше интернет соединение или вернитесь на эту
+                  страницу позже!
+                </h4>
+              </div>
+            ) : pizzaLoading === "loading" ? (
+              [...Array(8)].map((_, index) => <PizzaSkeleton key={index} />)
+            ) : (
+              pizzasArr.map((item) => <PizzaBlock key={item.id} {...item} />)
+            )}
           </div>
         </div>
         <Pagination pageCount={pageCount} />
