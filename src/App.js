@@ -9,10 +9,7 @@ import Cart from "./pages/Cart";
 export const SearchContext = createContext();
 
 function App() {
-  const [searchValue, setSearchValue] = React.useState("");
-
   return (
-    <SearchContext.Provider value={{ searchValue, setSearchValue }}>
       <div className="wrapper">
         <Header />
 
@@ -22,7 +19,6 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
-    </SearchContext.Provider>
   );
 }
 

@@ -9,7 +9,6 @@ import { useContext } from "react";
 import { selectCart } from "../redux/slices/cartSlice";
 
 function Header() {
-  const { searchValue, setSearchValue } = useContext(SearchContext);
   const { totalPrice, items } = useSelector(selectCart);
 
   const totalCount = items.reduce((sum, item) => {
@@ -29,10 +28,7 @@ function Header() {
             </div>
           </Link>
         </div>
-        <Search
-          searchValue={searchValue}
-          setSearchValue={(value) => setSearchValue(value)}
-        />
+        <Search />
         <div className="header__cart">
           <Link to={"/cart"} className="button button--cart">
             <span>{totalPrice} ₴</span>

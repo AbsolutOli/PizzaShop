@@ -13,7 +13,6 @@ import Categories from "../components/Categories";
 import Sort, { sortType } from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
-import { SearchContext } from "../App";
 import Pagination from "../components/Pagination";
 import { setPageCount, fetchPizzas } from "../redux/slices/pizzaSlice";
 
@@ -26,6 +25,7 @@ function Home() {
     sort: activeSortType,
     order: activeSortOrder,
     page: activePage,
+    searchValue,
   } = useSelector(selectFilter);
   const {
     pizzasArr,
@@ -37,7 +37,6 @@ function Home() {
     dispatch(setCategoryId(index));
   };
 
-  const { searchValue } = React.useContext(SearchContext);
   const isMounted = React.useRef(false);
   const isSearch = React.useRef(false);
 
