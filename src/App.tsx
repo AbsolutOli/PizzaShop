@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Header from "./components/Header";
@@ -6,9 +6,8 @@ import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
 import Cart from "./pages/Cart";
 
-export const SearchContext = createContext();
-
 function App() {
+  
   return (
       <div className="wrapper">
         <Header />
