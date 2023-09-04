@@ -5,11 +5,11 @@ import CartItem from "../components/cartItem";
 import ShoppingCartImg from "../assets/img/shopping-cart.svg";
 import { clearCart, selectCart } from "../redux/slices/cartSlice";
 
-function Cart() {
+const Cart:React.FC = () => {
   const dispatch = useDispatch();
   const { totalPrice, items } = useSelector(selectCart);
 
-  const itemCartCount = items.reduce((sum, item) => {
+  const itemCartCount = items.reduce((sum: number, item: any) => {
     return item.count + sum;
   }, 0);
 
@@ -99,7 +99,7 @@ function Cart() {
                 </div>
               </div>
               <div className="content__items_cart">
-                {items.map((item, index) => (
+                {items.map((item: any, index: number) => (
                   <CartItem key={index} {...item} />
                 ))}
               </div>
