@@ -44,6 +44,8 @@ const pizzaSlice = createSlice({
     }
 })
 
+export const selectPizzaData = ((state) => state.pizza);
+
 export const {setPizzasArr, setPageCount} = pizzaSlice.actions;
 
 export default pizzaSlice.reducer;

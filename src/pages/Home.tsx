@@ -14,7 +14,7 @@ import Sort, { sortType } from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
 import Pagination from "../components/Pagination";
-import { setPageCount, fetchPizzas } from "../redux/slices/pizzaSlice";
+import { setPageCount, fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
 
 function Home() {
   const navigate = useNavigate();
@@ -31,9 +31,9 @@ function Home() {
     pizzasArr,
     pageCount,
     status: pizzaLoading,
-  } = useSelector((state) => state.pizza);
+  } = useSelector(selectPizzaData);
 
-  const onChangeCategory = (index) => {
+  const onChangeCategory = (index: number) => {
     dispatch(setCategoryId(index));
   };
 
@@ -59,7 +59,9 @@ function Home() {
       console.log(err);
     }
 
-    dispatch(fetchPizzas({ search, category, limit, page, sort, order }));
+    dispatch(
+      // @ts-ignore 
+      fetchPizzas({ search, category, limit, page, sort, order }));
   };
 
   React.useEffect(() => {
@@ -133,7 +135,7 @@ function Home() {
             ) : pizzaLoading === "loading" ? (
               [...Array(8)].map((_, index) => <PizzaSkeleton key={index} />)
             ) : (
-              pizzasArr.map((item) => <PizzaBlock key={item.id} {...item} />)
+              pizzasArr.map((item: any) => <PizzaBlock key={item.id} {...item} />)
             )}
           </div>
         </div>
