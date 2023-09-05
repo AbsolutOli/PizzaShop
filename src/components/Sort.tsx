@@ -11,6 +11,10 @@ type SortItem = {
   parameter: string
 }
 
+type PopUpClick = MouseEvent & {
+  conposedPath: Node[];
+}
+
 export const sortType: SortItem[] = [
   { name: "популярности", parameter: "rating" },
   { name: "цене", parameter: "price" },
@@ -26,8 +30,9 @@ function Sort() {
   const sortRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const onBodyClick = (event: any) => {
-      if (!event.composedPath().includes(sortRef.current)) {
+    const onBodyClick = (event: MouseEvent) => {
+      const _event = event as PopUpClick;
+      if (sortRef.current && !_event.composedPath().includes(sortRef.current)) {
         setVisibleSort(false);
       }
     };
