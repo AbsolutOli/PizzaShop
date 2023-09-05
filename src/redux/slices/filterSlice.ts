@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 type Sort = {
@@ -7,21 +7,21 @@ type Sort = {
 }
 
 interface FilterState {
-categoryId: number; 
+activeCategory: number; 
 sort: Sort;
 order: boolean;
-page: number;
+activePage: number;
 searchValue: string;
 }
 
 const initialState: FilterState = {
-categoryId: 0, 
+activeCategory: 0, 
 sort: {
     name: "популярности",
     parameter: "rating",
   },
 order: false,
-page: 1,
+activePage: 1,
 searchValue: ""
 };
 
@@ -29,32 +29,32 @@ const filterSlice = createSlice({
     name: 'filters',
     initialState,
     reducers: {
-        setCategoryId(state, action){
-            state.categoryId = action.payload;
+        setCategoryId(state, action: PayloadAction<number>){
+            state.activeCategory = action.payload;
         },
-        setSortType(state, action){
+        setSortType(state, action: PayloadAction<Sort>){
             state.sort = action.payload;
         },
-        setOrder(state, action){
+        setOrder(state, action: PayloadAction<boolean>){
             state.order = action.payload;
         },
-        setPage(state, action){
-            state.page = action.payload;
+        setPage(state, action: PayloadAction<number>){
+            state.activePage = action.payload;
         },
-        setFilters(state, action){
-            state.categoryId = Number(action.payload.activeCategory);
+        setFilters(state, action: PayloadAction<FilterState>){
+            state.activeCategory = Number(action.payload.activeCategory);
             state.sort = action.payload.sort;
             state.order = action.payload.order;
-            state.page = Number(action.payload.activePage);
+            state.activePage = Number(action.payload.activePage);
         },
-        setSearchValue(state, action){
+        setSearchValue(state, action: PayloadAction<string>){
             state.searchValue = action.payload;
         }
     }
 })
 
 export const selectFilter = (state: RootState) => state.filter;
-export const selectFilterPage = (state: RootState) => state.filter.page;
+export const selectFilterPage = (state: RootState) => state.filter.activePage;
 
 export const {setCategoryId, setSortType, setOrder, setPage, setFilters, setSearchValue} = filterSlice.actions;
 

@@ -18,9 +18,9 @@ const initialState: PizzaState = {
     status: 'loading'
 }
 
-export const fetchPizzas = createAsyncThunk('pizza/fetchPizzas', async (params)=>{
+export const fetchPizzas = createAsyncThunk<Pizza[], Record<string, string>>('pizza/fetchPizzas', async (params)=>{
     const {search, category, limit, page, sort, order} = params;
-    const {data} = await axios.get(
+    const {data} = await axios.get<Pizza[]>(
         `https://64e73e4cb0fd9648b78f9b4b.mockapi.io/items?${
           search + category + limit + page + sort + order
         }`
@@ -36,23 +36,24 @@ const pizzaSlice = createSlice({
             state.pizzasArr = action.payload;
         },
         setPageCount(state,action){
-            ((action.payload.length/8).toFixed()) > 0 ? state.pageCount = Number((action.payload.length/8).toFixed()) : state.pageCount = 1;
+            Number((action.payload.length/8).toFixed()) > 0 ? state.pageCount = Number((action.payload.length/8).toFixed()) : state.pageCount = 1;
         }
     }, 
-    extraReducers: {
-        [fetchPizzas.pending]:(state)=>{
-            state.status = 'loading';
-            state.pizzasArr = [];
-        },
-        [fetchPizzas.fulfilled]:(state, action)=>{
-            state.pizzasArr = action.payload;
-            state.status = 'success';
-        },
-        [fetchPizzas.rejected]:(state)=>{
-            state.status = 'error';
-            state.pizzasArr = [];
-        }
-    }
+    extraReducers(builder) {
+        builder
+          .addCase(fetchPizzas.pending, (state) => {
+                state.status = 'loading';
+                state.pizzasArr = [];
+          })
+          .addCase(fetchPizzas.fulfilled, (state, action) => {
+                state.pizzasArr = action.payload;
+                state.status = 'success';
+          })
+          .addCase(fetchPizzas.rejected, (state, action) => {
+                state.status = 'error';
+                state.pizzasArr = [];
+          })
+      }
 })
 
 export const selectPizzaData = ((state: RootState) => state.pizza);
