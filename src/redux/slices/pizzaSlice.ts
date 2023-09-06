@@ -6,7 +6,7 @@ type Pizza = {
     id: number, title: string, imageUrl: string, types: number[], sizes: number[], price: number
 }
 
-enum StatusValue {
+export enum StatusValue {
     LOADING = 'loading',
     SUCCESS = 'success',
     ERROR = 'error'

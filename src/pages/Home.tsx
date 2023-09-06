@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  FilterState,
+  SortFilterState,
   selectFilter,
   setCategoryId,
   setFilters,
@@ -10,7 +12,8 @@ import qs from "qs";
 import { useNavigate } from "react-router-dom";
 
 import Categories from "../components/Categories";
-import Sort, { sortType } from "../components/Sort";
+import Sort from "../components/Sort";
+import { sortType } from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
 import Pagination from "../components/Pagination";
@@ -21,10 +24,10 @@ function Home() {
   const dispatch = useDispatch();
 
   const {
-    categoryId: activeCategory,
+    activeCategory: activeCategory,
     sort: activeSortType,
     order: activeSortOrder,
-    page: activePage,
+    activePage: activePage,
     searchValue,
   } = useSelector(selectFilter);
   const {
@@ -66,14 +69,16 @@ function Home() {
 
   React.useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
+      const params = qs.parse(window.location.search.substring(1)) ;
+      console.log(params)
       const order = params.activeSortOrder === "false" ? false : true;
-      const sort = sortType.find(
+      const sort = (sortType.find(
         (obj) => obj.parameter === params.activeSortType
-      );
+      ) as SortFilterState) ;
       dispatch(
         setFilters({
-          ...params,
+          activeCategory,
+          activePage,
           sort,
           order,
         })
