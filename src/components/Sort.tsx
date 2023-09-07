@@ -4,6 +4,7 @@ import {
   setSortType,
   setOrder,
   selectFilter,
+  SortFilterState,
 } from "../redux/slices/filterSlice";
 
 type SortItem = {
@@ -44,7 +45,7 @@ function Sort() {
   }, []);
 
   const onClickSortType = (type: SortItem) => {
-    dispatch(setSortType(type));
+    dispatch(setSortType(type as SortFilterState));
     setVisibleSort(!visibleSort);
   };
 

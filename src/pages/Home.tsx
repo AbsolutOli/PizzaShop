@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  FilterState,
   SortFilterState,
   selectFilter,
   setCategoryId,
@@ -24,10 +23,10 @@ function Home() {
   const dispatch = useDispatch();
 
   const {
-    activeCategory: activeCategory,
+    activeCategory,
     sort: activeSortType,
     order: activeSortOrder,
-    activePage: activePage,
+    activePage,
     searchValue,
   } = useSelector(selectFilter);
   const {
