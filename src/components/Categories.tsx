@@ -1,3 +1,4 @@
+import { useWhyDidYouUpdate } from "ahooks";
 import React from "react";
 
 type CategoriesProps = {
@@ -5,15 +6,16 @@ type CategoriesProps = {
   setSelectedCategory: (idx: number)=>void;
 }
 
-const Categories: React.FC<CategoriesProps> = ({ selectedCategory, setSelectedCategory }) => {
-  const categories = [
-    "Все",
-    "Мясные",
-    "Вегетарианская",
-    "Гриль",
-    "Острые",
-    "Закрытые",
-  ];
+const categories = [
+  "Все",
+  "Мясные",
+  "Вегетарианская",
+  "Гриль",
+  "Острые",
+  "Закрытые",
+];
+
+const Categories: React.FC<CategoriesProps> = React.memo(({ selectedCategory, setSelectedCategory }) => {
 
   return (
     <div className="categories">
@@ -30,6 +32,6 @@ const Categories: React.FC<CategoriesProps> = ({ selectedCategory, setSelectedCa
       </ul>
     </div>
   );
-}
+}) 
 
 export default Categories;

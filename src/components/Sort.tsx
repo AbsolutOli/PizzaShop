@@ -22,7 +22,7 @@ export const sortType: SortItem[] = [
   { name: "алфавиту", parameter: "title" },
 ];
 
-function Sort() {
+const Sort: React.FC = React.memo(() => {
   const dispatch = useDispatch();
   const { sort: selectedType, order: selectedOrder } =
     useSelector(selectFilter);
@@ -48,6 +48,8 @@ function Sort() {
     dispatch(setSortType(type as SortFilterState));
     setVisibleSort(!visibleSort);
   };
+
+  console.log(selectedType, selectedOrder)
 
   return (
     <div ref={sortRef} className="sort">
@@ -91,6 +93,6 @@ function Sort() {
       )}
     </div>
   );
-}
+}) 
 
 export default Sort;
