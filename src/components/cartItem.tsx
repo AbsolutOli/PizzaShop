@@ -23,7 +23,8 @@ const CartItem: React.FC<CartItemProps> = ({ id, title, imageUrl, type, size, co
         </p>
       </div>
       <div className="cart__item-count">
-        <div
+        <button
+          disabled = {count < 2 ? true : false}
           onClick={() => dispatch(minusItem(id))}
           className="button button--outline button--circle cart__item-count-minus"
         >
@@ -43,7 +44,7 @@ const CartItem: React.FC<CartItemProps> = ({ id, title, imageUrl, type, size, co
               fill="#EB5A1E"
             />
           </svg>
-        </div>
+        </button>
         <b>{count}</b>
         <div
           onClick={() => dispatch(addItem(({id} as unknown)as CartSliceItem))}
