@@ -5,14 +5,25 @@ import Search from "./Search";
 
 import PizzaLogo from "../assets/img/pizzalogo.png";
 import { selectCart } from "../redux/slices/cartSlice";
+import React from "react";
 
 function Header() {
   const { totalPrice, items } = useSelector(selectCart);
   const location = useLocation();
+  const [isMounted, setIsMounted] = React.useState(false);
 
   const totalCount = items.reduce((sum: number, item: any) => {
     return item.count + sum;
   }, 0);
+
+  React.useEffect(()=>{
+    if(isMounted){
+      const json = JSON.stringify(items);
+      localStorage.setItem('cart', json);
+    }
+    setIsMounted(true);
+  }, [items])
+
   return (
     <div className="header">
       <div className="container">

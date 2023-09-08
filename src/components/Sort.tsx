@@ -49,8 +49,6 @@ const Sort: React.FC = React.memo(() => {
     setVisibleSort(!visibleSort);
   };
 
-  console.log(selectedType, selectedOrder)
-
   return (
     <div ref={sortRef} className="sort">
       <div className="sort__label">
