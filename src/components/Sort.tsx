@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setSortType,
   setOrder,
-  selectFilter,
-  SortFilterState,
-} from "../redux/slices/filterSlice";
+} from "../redux/filter/slice";
+import { selectFilter } from "../redux/filter/selectors";
+import { SortFilterState } from "../redux/filter/types";
 
 type SortItem = {
   name: string,

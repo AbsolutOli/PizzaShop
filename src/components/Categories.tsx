@@ -1,4 +1,3 @@
-import { useWhyDidYouUpdate } from "ahooks";
 import React from "react";
 
 type CategoriesProps = {

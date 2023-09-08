@@ -1,11 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  SortFilterState,
-  selectFilter,
   setCategoryId,
   setFilters,
-} from "../redux/slices/filterSlice";
+} from "../redux/filter/slice";
 import axios from "axios";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +14,11 @@ import { sortType } from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
 import Pagination from "../components/Pagination";
-import { setPageCount, fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
+import { setPageCount } from "../redux/pizza/slice";
+import { SortFilterState } from "../redux/filter/types";
+import { selectFilter } from "../redux/filter/selectors";
+import { selectPizzaData } from "../redux/pizza/selectors";
+import { fetchPizzas } from "../redux/pizza/asyncRequest";
 
 function Home() {
   const navigate = useNavigate();
