@@ -38,12 +38,11 @@ function Home() {
     status: pizzaLoading,
   } = useSelector(selectPizzaData);
 
+  console.log(pizzasArr);
+
   const onChangeCategory = React.useCallback((index: number) => {
     dispatch(setCategoryId(index));
   }, []);
-
-  console.log('Category: ', activeCategory)
-  console.log('SortType: ', activeSortType)
 
   const isMounted = React.useRef(false);
   const isSearch = React.useRef(false);
@@ -75,7 +74,7 @@ function Home() {
   React.useEffect(() => {
     if (window.location.search) {
       const {activeCategory, activePage, activeSortOrder, activeSortType} = qs.parse(window.location.search.substring(1));
-      console.log('Params: ', activeCategory, activePage, activeSortOrder, activeSortType) 
+       
       const order = activeSortOrder === "false" ? false : true;
       const sort = (sortType.find(
         (obj) => obj.parameter === activeSortType

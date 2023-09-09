@@ -5,7 +5,7 @@ type CategoriesProps = {
   setSelectedCategory: (idx: number)=>void;
 }
 
-const categories = [
+export const categories = [
   "Все",
   "Мясные",
   "Вегетарианская",

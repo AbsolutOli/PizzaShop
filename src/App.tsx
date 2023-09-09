@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
 import Cart from "./pages/Cart";
+import FullPizzaBlock from "./components/FullPizzaBlock";
 
 function App() {
   
@@ -13,7 +14,9 @@ function App() {
         <Header />
 
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />}>
+            <Route path=":id" element={<FullPizzaBlock/>}/>
+          </Route>
           <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
