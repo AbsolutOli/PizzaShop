@@ -6,7 +6,8 @@ import {
 } from "../redux/filter/slice";
 import axios from "axios";
 import qs from "qs";
-import { useNavigate } from "react-router-dom";
+
+import { Outlet, useNavigate } from "react-router-dom";
 
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
@@ -15,7 +16,7 @@ import PizzaBlock from "../components/PizzaBlock";
 import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
 import Pagination from "../components/Pagination";
 import { setPageCount } from "../redux/pizza/slice";
-import { SortFilterState } from "../redux/filter/types";
+import {  FilterState, SortFilterState } from "../redux/filter/types";
 import { selectFilter } from "../redux/filter/selectors";
 import { selectPizzaData } from "../redux/pizza/selectors";
 import { fetchPizzas } from "../redux/pizza/asyncRequest";
@@ -40,6 +41,9 @@ function Home() {
   const onChangeCategory = React.useCallback((index: number) => {
     dispatch(setCategoryId(index));
   }, []);
+
+  console.log('Category: ', activeCategory)
+  console.log('SortType: ', activeSortType)
 
   const isMounted = React.useRef(false);
   const isSearch = React.useRef(false);
@@ -70,18 +74,19 @@ function Home() {
 
   React.useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-      const order = params.activeSortOrder === "false" ? false : true;
+      const {activeCategory, activePage, activeSortOrder, activeSortType} = qs.parse(window.location.search.substring(1));
+      console.log('Params: ', activeCategory, activePage, activeSortOrder, activeSortType) 
+      const order = activeSortOrder === "false" ? false : true;
       const sort = (sortType.find(
-        (obj) => obj.parameter === params.activeSortType
-      ) as SortFilterState) ;
+        (obj) => obj.parameter === activeSortType
+      ) as SortFilterState);
       dispatch(
-        setFilters({
+        setFilters((({
           activeCategory,
           activePage,
           sort,
           order,
-        })
+        }) as unknown) as FilterState)
       );
       isSearch.current = true;
     }
@@ -144,6 +149,7 @@ function Home() {
             )}
           </div>
         </div>
+        <Outlet/>
         <Pagination pageCount={pageCount} />
       </div>
     </div>
