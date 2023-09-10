@@ -1,9 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setCategoryId,
-  setFilters,
-} from "../redux/filter/slice";
+import { setCategoryId, setFilters } from "../redux/filter/slice";
 import axios from "axios";
 import qs from "qs";
 
@@ -16,7 +13,7 @@ import PizzaBlock from "../components/PizzaBlock";
 import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
 import Pagination from "../components/Pagination";
 import { setPageCount } from "../redux/pizza/slice";
-import {  FilterState, SortFilterState } from "../redux/filter/types";
+import { FilterState, SortFilterState } from "../redux/filter/types";
 import { selectFilter } from "../redux/filter/selectors";
 import { selectPizzaData } from "../redux/pizza/selectors";
 import { fetchPizzas } from "../redux/pizza/asyncRequest";
@@ -37,8 +34,6 @@ function Home() {
     pageCount,
     status: pizzaLoading,
   } = useSelector(selectPizzaData);
-
-  console.log(pizzasArr);
 
   const onChangeCategory = React.useCallback((index: number) => {
     dispatch(setCategoryId(index));
@@ -67,25 +62,27 @@ function Home() {
     }
 
     dispatch(
-      // @ts-ignore 
-      fetchPizzas({ search, category, limit, page, sort, order }));
+      // @ts-ignore
+      fetchPizzas({ search, category, limit, page, sort, order })
+    );
   };
 
   React.useEffect(() => {
     if (window.location.search) {
-      const {activeCategory, activePage, activeSortOrder, activeSortType} = qs.parse(window.location.search.substring(1));
-       
+      const { activeCategory, activePage, activeSortOrder, activeSortType } =
+        qs.parse(window.location.search.substring(1));
+
       const order = activeSortOrder === "false" ? false : true;
-      const sort = (sortType.find(
+      const sort = sortType.find(
         (obj) => obj.parameter === activeSortType
-      ) as SortFilterState);
+      ) as SortFilterState;
       dispatch(
-        setFilters((({
+        setFilters({
           activeCategory,
           activePage,
           sort,
           order,
-        }) as unknown) as FilterState)
+        } as unknown as FilterState)
       );
       isSearch.current = true;
     }
@@ -144,11 +141,13 @@ function Home() {
             ) : pizzaLoading === "loading" ? (
               [...Array(8)].map((_, index) => <PizzaSkeleton key={index} />)
             ) : (
-              pizzasArr.map((item: any) => <PizzaBlock key={item.id} {...item} />)
+              pizzasArr.map((item: any) => (
+                <PizzaBlock key={item.id} {...item} />
+              ))
             )}
           </div>
         </div>
-        <Outlet/>
+        <Outlet />
         <Pagination pageCount={pageCount} />
       </div>
     </div>

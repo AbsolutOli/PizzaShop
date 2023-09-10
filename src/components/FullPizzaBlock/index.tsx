@@ -22,14 +22,15 @@ const FullPizzaBlock: React.FC = () => {
 
   const contentRef = React.useRef<HTMLDivElement>(null);
 
+  const [activeDoughType, setActiveDoughType] = React.useState(0);
+  const [activePizzaSize, setActivePizzaSize] = React.useState(0);
+
   React.useEffect(() => {
     const onClickBody = (event: MouseEvent) => {
       if (
         contentRef.current &&
         !event.composedPath().includes(contentRef.current)
       ) {
-        console.log(event);
-        event.stopPropagation();
         navigate(`/${window.location.search}`);
       }
     };
@@ -44,9 +45,6 @@ const FullPizzaBlock: React.FC = () => {
   const item = fullPizza as Pizza & { rating: number; category: number };
   const cartItem = useSelector(selectPizzaData(Number(id)));
   const itemCount = cartItem ? cartItem.count : 0;
-
-  const [activeDoughType, setActiveDoughType] = React.useState(0);
-  const [activePizzaSize, setActivePizzaSize] = React.useState(0);
 
   const onClickAdd = () => {
     if (item) {
@@ -70,7 +68,21 @@ const FullPizzaBlock: React.FC = () => {
 
   return (
     <div className={styles.fullpizza}>
-      <div ref={contentRef} className={styles.fullpizza__content}>
+      <div ref={contentRef} className={`${styles.fullpizza__content}`}>
+        <div className={styles.fullpizza__closeBtn}>
+          <button onClick={() => navigate(`/${window.location.search}`)}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="40"
+              height="40"
+              fill="#fe5f1e"
+              viewBox="0 0 16 16"
+            >
+              {" "}
+              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>{" "}
+            </svg>
+          </button>
+        </div>
         <div className={styles.fullpizza__img}>
           <img width={500} src={item.imageUrl} alt="Pizza" />
         </div>
