@@ -1,16 +1,28 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addItem} from "../../redux/cart/slice";
+import { addItem } from "../../redux/cart/slice";
 import { selectPizzaData } from "../../redux/cart/selectors";
 import { Link } from "react-router-dom";
 
 type PizzaBlockProps = {
-  id: number, title: string, imageUrl: string, types: number[], sizes: number[], price: number
-}
+  id: number;
+  title: string;
+  imageUrl: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+};
 
 export const doughTypes = ["тонкое", "традиционное"];
 
-const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, imageUrl, types, sizes, price }) => {
+const PizzaBlock: React.FC<PizzaBlockProps> = ({
+  id,
+  title,
+  imageUrl,
+  types,
+  sizes,
+  price,
+}) => {
   const dispatch = useDispatch();
   const cartItem = useSelector(selectPizzaData(id));
   const [activeDoughType, setActiveDoughType] = React.useState(0);
@@ -26,7 +38,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, imageUrl, types, siz
       type: doughTypes[activeDoughType],
       size: sizes[activePizzaSize],
       price,
-      count: 1
+      count: 1,
     };
 
     dispatch(addItem(item));
@@ -34,11 +46,14 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, imageUrl, types, siz
 
   return (
     <div className="pizza-block">
-      <Link to={`/${id + window.location.search}`}>
-      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-      <h4 className="pizza-block__title">{title}</h4>
+      <Link
+        onClick={(event) => event.stopPropagation()}
+        to={`/${id + window.location.search}`}
+      >
+        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+        <h4 className="pizza-block__title">{title}</h4>
       </Link>
-      
+
       <div className="pizza-block__selector">
         <ul>
           {types.map((type, index) => (
@@ -87,6 +102,6 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, imageUrl, types, siz
       </div>
     </div>
   );
-}
+};
 
 export default PizzaBlock;
