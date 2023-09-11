@@ -18,6 +18,7 @@ const initialState: FilterState = {
         reducers: {
             setCategoryId(state, action: PayloadAction<number>){
                 state.activeCategory = action.payload;
+                state.activePage = 1;
             },
             setSortType(state, action: PayloadAction<SortFilterState>){
                 state.sort = action.payload;

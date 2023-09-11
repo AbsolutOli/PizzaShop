@@ -5,6 +5,11 @@
 
 body {
   background-color: $background;
+
+  &.fullPizzaActive{
+    overflow: hidden;
+    padding-right: 10px;
+  }
 }
 
 .wrapper {
@@ -380,3 +385,7 @@ body {
     }
   }
 }
+
+
+
+

@@ -35,9 +35,11 @@ const FullPizzaBlock: React.FC = () => {
       }
     };
 
+    document.body.classList.add("fullPizzaActive");
     document.body.addEventListener("click", onClickBody);
 
     return () => {
+      document.body.classList.remove("fullPizzaActive");
       document.body.removeEventListener("click", onClickBody);
     };
   }, []);
