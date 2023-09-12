@@ -19,34 +19,44 @@ const FullPizzaBlock: React.FC = () => {
   const fullPizza = useSelector((state: RootState) =>
     state.pizza.pizzasArr.find((pizza) => pizza.id === Number(id))
   );
+  const item = fullPizza as Pizza & { rating: number; category: number };
+
+  console.log(fullPizza, item);
 
   const contentRef = React.useRef<HTMLDivElement>(null);
 
   const [activeDoughType, setActiveDoughType] = React.useState(0);
   const [activePizzaSize, setActivePizzaSize] = React.useState(0);
 
-  React.useEffect(() => {
-    const onClickBody = (event: MouseEvent) => {
-      if (
-        contentRef.current &&
-        !event.composedPath().includes(contentRef.current)
-      ) {
-        navigate(`/${window.location.search}`);
-      }
-    };
-
-    document.body.classList.add("fullPizzaActive");
-    document.body.addEventListener("click", onClickBody);
-
-    return () => {
-      document.body.classList.remove("fullPizzaActive");
-      document.body.removeEventListener("click", onClickBody);
-    };
-  }, []);
-
-  const item = fullPizza as Pizza & { rating: number; category: number };
   const cartItem = useSelector(selectPizzaData(Number(id)));
   const itemCount = cartItem ? cartItem.count : 0;
+
+  const onClickBody = (event: MouseEvent) => {
+    if (
+      contentRef.current &&
+      !event.composedPath().includes(contentRef.current)
+    ) {
+      navigate(`/${window.location.search}`);
+    }
+  };
+
+  React.useEffect(() => {
+    if (fullPizza) {
+      document.body.classList.add("fullPizzaActive");
+      document.body.addEventListener("click", onClickBody);
+
+      return () => {
+        document.body.classList.remove("fullPizzaActive");
+        document.body.removeEventListener("click", onClickBody);
+      };
+    } else {
+      navigate(`/${window.location.search}`);
+    }
+  }, []);
+
+  if (!item) {
+    return <></>;
+  }
 
   const onClickAdd = () => {
     if (item) {
@@ -63,10 +73,6 @@ const FullPizzaBlock: React.FC = () => {
       dispatch(addItem(pizza));
     }
   };
-
-  if (!item) {
-    return <h2>Loading </h2>;
-  }
 
   return (
     <div className={styles.fullpizza}>
