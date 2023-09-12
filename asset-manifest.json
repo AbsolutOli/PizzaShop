@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/PizzaShop/static/css/main.f8e5792d.css",
+    "main.js": "/PizzaShop/static/js/main.1a93b0db.js",
+    "Cart.js": "/PizzaShop/static/js/Cart.680fd1ec.chunk.js",
+    "FullPizzaBlock.css": "/PizzaShop/static/css/FullPizzaBlock.289fbe26.chunk.css",
+    "FullPizzaBlock.js": "/PizzaShop/static/js/FullPizzaBlock.4f7067e9.chunk.js",
+    "PageNotFound.css": "/PizzaShop/static/css/PageNotFound.c31e490d.chunk.css",
+    "PageNotFound.js": "/PizzaShop/static/js/PageNotFound.9b0937c0.chunk.js",
+    "static/media/shopping-cart.svg": "/PizzaShop/static/media/shopping-cart.49e3eb7618f9e300dd436cae4aabd67d.svg",
+    "index.html": "/PizzaShop/index.html",
+    "main.f8e5792d.css.map": "/PizzaShop/static/css/main.f8e5792d.css.map",
+    "main.1a93b0db.js.map": "/PizzaShop/static/js/main.1a93b0db.js.map",
+    "Cart.680fd1ec.chunk.js.map": "/PizzaShop/static/js/Cart.680fd1ec.chunk.js.map",
+    "FullPizzaBlock.289fbe26.chunk.css.map": "/PizzaShop/static/css/FullPizzaBlock.289fbe26.chunk.css.map",
+    "FullPizzaBlock.4f7067e9.chunk.js.map": "/PizzaShop/static/js/FullPizzaBlock.4f7067e9.chunk.js.map",
+    "PageNotFound.c31e490d.chunk.css.map": "/PizzaShop/static/css/PageNotFound.c31e490d.chunk.css.map",
+    "PageNotFound.9b0937c0.chunk.js.map": "/PizzaShop/static/js/PageNotFound.9b0937c0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f8e5792d.css",
+    "static/js/main.1a93b0db.js"
+  ]
+}
