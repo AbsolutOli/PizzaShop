@@ -1,6 +1,6 @@
 import styles from "./NotFound.module.scss";
 
-const NotFound: React.FC = () => {
+export const NotFound: React.FC = () => {
   return (
     <div className={styles.pagenotfound}>
       <p>😔</p>
@@ -11,6 +11,4 @@ const NotFound: React.FC = () => {
       </h4>
     </div>
   );
-}
-
-export default NotFound;
+};

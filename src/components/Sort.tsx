@@ -1,20 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setSortType,
-  setOrder,
-} from "../redux/filter/slice";
+import { setSortType, setOrder } from "../redux/filter/slice";
 import { selectFilter } from "../redux/filter/selectors";
 import { SortFilterState } from "../redux/filter/types";
 
 type SortItem = {
-  name: string,
-  parameter: string
-}
+  name: string;
+  parameter: string;
+};
 
 type PopUpClick = MouseEvent & {
   conposedPath: Node[];
-}
+};
 
 export const sortType: SortItem[] = [
   { name: "популярности", parameter: "rating" },
@@ -22,7 +19,7 @@ export const sortType: SortItem[] = [
   { name: "алфавиту", parameter: "title" },
 ];
 
-const Sort: React.FC = React.memo(() => {
+export const Sort: React.FC = React.memo(() => {
   const dispatch = useDispatch();
   const { sort: selectedType, order: selectedOrder } =
     useSelector(selectFilter);
@@ -91,6 +88,4 @@ const Sort: React.FC = React.memo(() => {
       )}
     </div>
   );
-}) 
-
-export default Sort;
+});

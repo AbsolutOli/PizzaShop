@@ -6,12 +6,12 @@ import qs from "qs";
 
 import { Outlet, useNavigate } from "react-router-dom";
 
-import Categories from "../components/Categories";
-import Sort from "../components/Sort";
+import { Categories } from "../components/Categories";
+import { Sort } from "../components/Sort";
 import { sortType } from "../components/Sort";
-import PizzaBlock from "../components/PizzaBlock";
+import { PizzaBlock } from "../components/PizzaBlock";
 import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
-import Pagination from "../components/Pagination";
+import { Pagination } from "../components/Pagination";
 import { setPageCount } from "../redux/pizza/slice";
 import { FilterState, SortFilterState } from "../redux/filter/types";
 import { selectFilter } from "../redux/filter/selectors";

@@ -5,9 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 type PaginationProps = {
   pageCount: number;
-}
+};
 
-const Pagination: React.FC<PaginationProps> = ({ pageCount }) => {
+export const Pagination: React.FC<PaginationProps> = ({ pageCount }) => {
   const dispatch = useDispatch();
   const activePage = useSelector(selectFilterPage);
   return (
@@ -58,6 +58,4 @@ const Pagination: React.FC<PaginationProps> = ({ pageCount }) => {
       </ul>
     </div>
   );
-}
-
-export default Pagination;
+};

@@ -15,7 +15,7 @@ type PizzaBlockProps = {
 
 export const doughTypes = ["тонкое", "традиционное"];
 
-const PizzaBlock: React.FC<PizzaBlockProps> = ({
+export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   id,
   title,
   imageUrl,
@@ -103,5 +103,3 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
     </div>
   );
 };
-
-export default PizzaBlock;
